@@ -6,7 +6,6 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 )
 
 func main() {
@@ -84,7 +83,6 @@ func ConnectConsumer(brokers []string) (sarama.Consumer, error) {
 
 	//задаем параметры
 	config.Consumer.Return.Errors = true // возвращение ошибок
-	config.Consumer.MaxWaitTime = time.Second * 15
 	
 	// создаем нового продюсера и возвращаем его
 	return sarama.NewConsumer(brokers, config)
