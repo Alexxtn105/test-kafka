@@ -11,8 +11,8 @@ import (
 
 // Order структура заказа
 type Order struct {
-	CustomerName string `json: "customer_name"`
-	CoffeeType   string `json: "coffee_type"`
+	CustomerName string `json:"customer_name"`
+	CoffeeType   string `json:"coffee_type"`
 }
 
 func main() {
@@ -36,9 +36,11 @@ func placeOrder(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
+	//fmt.Printf("%#v\n", order)
 	// 2. Конвертируем тело в слайс байтов
 	orderInBytes, err := json.Marshal(order)
+	//fmt.Println(orderInBytes)
+
 	if err != nil {
 		log.Println(err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
