@@ -6,3 +6,16 @@
 ```bash
 go get github.com/IBM/sarama
 ```
+
+
+# Запуск продюсера (producer):
+
+```bash
+go run main.go
+```
+
+# Запуск потребителя (consumer):
+
+```bash
+go run main.go
+```

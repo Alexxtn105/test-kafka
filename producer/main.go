@@ -93,7 +93,7 @@ func PushOrderToQueue(topic string, message []byte) error {
 		return err
 	}
 
-	log.Printf("Заказ сохранен в topic(%s)/partition(%s)/offset(%s)\n",
+	log.Printf("Заказ сохранен в topic(%s)/partition(%d)/offset(%d)\n",
 		topic,
 		partition,
 		offset,
