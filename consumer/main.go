@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 func main() {
@@ -24,7 +25,8 @@ func main() {
 	//defer worker.Close()
 
 	//читаем самую старую (OffsetOldest), нулевую партицию из топика
-	consumer, err := worker.ConsumePartition(topic, 0, sarama.OffsetOldest)
+	consumer, err := worker.ConsumePartition(topic, 0, sarama.OffsetOldest) // OffsetOldest - будут взяты ВСЕ сообщения из топика, даже после перезапуска приложения
+	//consumer, err := worker.ConsumePartition(topic, 0, sarama.OffsetNewest) // OffsetNewest - будет взято только САМОЕ НОВОВЕ сообщение из топика, после перезапуска ничего выводиться не будет
 	if err != nil {
 		panic(err)
 	}
@@ -37,7 +39,7 @@ func main() {
 	signal.Notify(sigchan, syscall.SIGINT, syscall.SIGTERM)
 
 	// 3. Создаем горутину для запуска потребителя (воркера)
-	//канал для ощения с горутиной
+	//канал для общения с горутиной
 	doneCh := make(chan struct{})
 	//создаем горутину для обработки всех сообщений (работает бесконечно)
 	go func() {
@@ -82,7 +84,8 @@ func ConnectConsumer(brokers []string) (sarama.Consumer, error) {
 
 	//задаем параметры
 	config.Consumer.Return.Errors = true // возвращение ошибок
-
+	config.Consumer.MaxWaitTime = time.Second * 15
+	
 	// создаем нового продюсера и возвращаем его
 	return sarama.NewConsumer(brokers, config)
 }

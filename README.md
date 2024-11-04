@@ -19,3 +19,12 @@ go run main.go
 ```bash
 go run main.go
 ```
+
+
+
+Тело тестового сообщение для Postman:
+localhost:8400/orders
+{
+"customer_name":"John",
+"coffee_type":"Latte"
+}

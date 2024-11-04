@@ -109,8 +109,8 @@ func ConnectProducer(brokers []string) (sarama.SyncProducer, error) {
 
 	//задаем параметры
 	config.Producer.Return.Successes = true          // в случае успешной доставки сообщения возвращаются в канал Successes
-	config.Producer.RequiredAcks = sarama.WaitForAll //Ожидаем все подтверждения
-	config.Producer.Retry.Max = 5                    // максимальное количество повторов
+	config.Producer.RequiredAcks = sarama.WaitForAll // Ожидаем все подтверждения
+	config.Producer.Retry.Max = 5                    // максимальное количество повторов при потере подключения к серверу кафки
 
 	// создаем нового продюсера и возвращаем его
 	return sarama.NewSyncProducer(brokers, config)
