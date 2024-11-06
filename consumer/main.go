@@ -25,7 +25,7 @@ func main() {
 
 	//читаем самую старую (OffsetOldest), нулевую партицию из топика
 	consumer, err := worker.ConsumePartition(topic, 0, sarama.OffsetOldest) // OffsetOldest - будут взяты ВСЕ сообщения из топика, даже после перезапуска приложения
-	//consumer, err := worker.ConsumePartition(topic, 0, sarama.OffsetNewest) // OffsetNewest - будет взято только САМОЕ НОВОВЕ сообщение из топика, после перезапуска ничего выводиться не будет
+	//consumer, err := worker.ConsumePartition(topic, 0, sarama.OffsetNewest) // OffsetNewest - будет взято только САМОЕ НОВОЕ сообщение из топика, после перезапуска ничего выводиться не будет
 	if err != nil {
 		panic(err)
 	}
@@ -83,7 +83,7 @@ func ConnectConsumer(brokers []string) (sarama.Consumer, error) {
 
 	//задаем параметры
 	config.Consumer.Return.Errors = true // возвращение ошибок
-	
+
 	// создаем нового продюсера и возвращаем его
 	return sarama.NewConsumer(brokers, config)
 }
